@@ -1,0 +1,28 @@
+.profile-form {
+    margin: 20px;
+    height: 1000px;
+}
+
+.rating-bar-holder {
+    padding-left: 40px;
+}
+
+.profile-btns {
+    height: 40px;
+    padding-right: 20px;
+    margin: 0 20px 20px 0;
+}
+
+.comment {
+    margin: 20px;
+}
+
+.rating-bar {
+    width: 300px;
+    padding-top: 14px;
+}
+
+.example-header-image {
+    background-image: url('https://static2.stuff.co.nz/1398841710/201/9994201.jpg');
+    background-size: cover;
+}
