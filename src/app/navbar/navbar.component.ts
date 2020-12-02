@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
+
 
 
 @Component({
@@ -11,14 +12,12 @@ export class NavbarComponent implements OnInit {
 
   @Output() isLogout = new EventEmitter<void>();
 
-  constructor(private firebaseService : FirebaseService) {  }
+  constructor(public fs: FirestoreService) {  }
 
   ngOnInit(): void {
   }
-
-  onLogout(){
-    this.firebaseService.logout();
-    this.isLogout.emit();
+  signOut() {
+    this.fs.signOut();
   }
 
 }

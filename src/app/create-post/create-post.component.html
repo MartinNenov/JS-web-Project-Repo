@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="postForm" (ngSubmit)="addPost(postForm)">
+            <mat-form-field>
+                <input matInput placeholder="Starting point" required name="from" ngModel #from="ngModel">
+                <mat-error *ngIf="from.invalid">
+                    You should specify where the trip starts from!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="End point" required name="to" ngModel #to="ngModel">
+                <mat-error *ngIf="to.invalid">
+                    You should specify where the trip ends!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Details" required name="details" ngModel #details="ngModel">
+                <mat-error *ngIf="details.invalid">Details are required</mat-error>
+            </mat-form-field>
+            <h4 *ngIf="addFailed" style="color: #f00;">Invalid post.Pleace try again</h4>
+            <button mat-raised-button color="primary" class="post-button">
+                Create Post
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>

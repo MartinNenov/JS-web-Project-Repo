@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angularprojectdata-d5559": {
+      "hosting": {
+        "testAngularMaterials": [
+          "angularprojectdata-d5559"
+        ]
+      }
+    }
+  }
+}

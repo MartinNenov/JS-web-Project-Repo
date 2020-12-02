@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { environment } from 'src/environments/environment';
+
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -16,13 +18,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { RegisterComponent } from './register/register.component';
-import { PostComponent } from './post/post.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ProfileComponent } from './profile/profile.component';
 
-import { FirebaseService } from './services/firebase.service'
+import { PostComponent } from './post/post.component';
+import { RegisterComponent } from './register/register.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PostsPageComponent } from './posts-page/posts-page.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+
 
 
 @NgModule({
@@ -31,7 +35,9 @@ import { FirebaseService } from './services/firebase.service'
     RegisterComponent,
     PostComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostsPageComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,17 +55,9 @@ import { FirebaseService } from './services/firebase.service'
     MatButtonModule,
     MatProgressBarModule,
     MatToolbarModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyDq0Ucq-KMhY01EXuaeluF8GQnW-Bliq5M",
-      authDomain: "angularprojectdata-d5559.firebaseapp.com",
-      databaseURL: "https://angularprojectdata-d5559.firebaseio.com",
-      projectId: "angularprojectdata-d5559",
-      storageBucket: "angularprojectdata-d5559.appspot.com",
-      messagingSenderId: "293920138519",
-      appId: "1:293920138519:web:9ad6977455788a51ff0352"
-    })
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [ FirebaseService ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

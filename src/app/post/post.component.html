@@ -2,6 +2,30 @@
     <mat-card class="post">
 
         <div class="post-content">
+            <mat-card-title class="post-title" style="text-align:left;">From [{{data.from}}] to [{{data.to}}]</mat-card-title>
+            <mat-card-content>
+                <div class="post-details">{{data.details}}</div>
+            </mat-card-content>
+            <button mat-stroked-button class="post-contact-button">Contact</button>
+            <button mat-stroked-button class="post-comment-button">Comment</button>
+            <button mat-stroked-button class="post-comment-button" (click)="removePost(data)">Delete</button>
+            <button mat-stroked-button class="post-comment-button">Edit</button>
+
+        </div>
+        <mat-card class="post-poster">
+            <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
+            <mat-card-content class="post=content">
+                <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdihasuihduiahsuidhaiushdiaisdihiussssssssssssssssssssosssssssssssssssssssssw: 2</div>
+                <button mat-stroked-button class="poster-profile-button">View Profile</button>
+            </mat-card-content>
+        </mat-card>
+
+    </mat-card>
+</div>
+<!-- <div class="holder">
+    <mat-card class="post">
+
+        <div class="post-content">
             <mat-card-title class="post-title" style="text-align:left;">From [place 1] to [place 2]</mat-card-title>
             <mat-card-content>
                 <div class="post-details">Detailsasdadasdsadssssssssssssasdssssssssssssssssssssssssssssssssssssssdjaoisjdijaoisjdajsodjaoijdjasdjjowneuoifnnienbrivpbeirgbiebrgibeirgbiesrbguibseirugbiesbrgisbeuirgbiesrbgisberuigbseirguibdassssssssssssssssssssssssssssssssssssssssssssssss</div>
@@ -19,8 +43,8 @@
         </mat-card>
 
     </mat-card>
-</div>
-<div class="holder">
+</div> -->
+<!-- <div class="holder">
     <mat-card class="post">
 
         <div class="post-content">
@@ -63,26 +87,4 @@
         </mat-card>
 
     </mat-card>
-</div>
-<div class="holder">
-    <mat-card class="post">
-
-        <div class="post-content">
-            <mat-card-title class="post-title" style="text-align:left;">From [place 1] to [place 2]</mat-card-title>
-            <mat-card-content>
-                <div class="post-details">Detailsasdadasdsadssssssssssssasdssssssssssssssssssssssssssssssssssssssdjaoisjdijaoisjdajsodjaoijdjasdjjowneuoifnnienbrivpbeirgbiebrgibeirgbiesrbguibseirugbiesbrgisbeuirgbiesrbgisberuigbseirguibdassssssssssssssssssssssssssssssssssssssssssssssss</div>
-            </mat-card-content>
-            <button mat-stroked-button class="post-contact-button">Contact</button>
-            <button mat-stroked-button class="post-comment-button">Comment</button>
-
-        </div>
-        <mat-card class="post-poster">
-            <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
-            <mat-card-content class="post=content">
-                <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdihasuihduiahsuidhaiushdiaisdihiussssssssssssssssssssosssssssssssssssssssssw: 2</div>
-                <button mat-stroked-button class="poster-profile-button">View Profile</button>
-            </mat-card-content>
-        </mat-card>
-
-    </mat-card>
-</div>
+</div> -->

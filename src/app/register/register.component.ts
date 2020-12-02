@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../services/firebase.service';
+import { Component, OnInit, HostBinding } from '@angular/core';
+/* import { AngularFire, AngularFireAuth, AuthMethods } from '@angular/fire/auth';
+
+import { AngularFire, AuthProviders, AuthMethods } from '@angular/fire'; */
 
 @Component({
   selector: 'app-register',
@@ -8,28 +10,8 @@ import { FirebaseService } from '../services/firebase.service';
 })
 export class RegisterComponent implements OnInit {
 
-  isSignedIn = false;
-
-  constructor(public firebaseService : FirebaseService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('user') !== null){
-      this.isSignedIn = true;
-    }else{
-      this.isSignedIn = false;
-    }
-  }
-
-  async onSignUp(username,email:string,password:string){
-    await this.firebaseService.signup(email,password);
-    if(this.firebaseService.isLoggedIn){
-      this.isSignedIn = true;
-    }
-  }
-  async onSignIn(email:string,password:string){
-    await this.firebaseService.signup(email,password);
-    if(this.firebaseService.isLoggedIn){
-      this.isSignedIn = true;
-    }
   }
 }
