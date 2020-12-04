@@ -6,10 +6,10 @@
             <mat-card-content>
                 <div class="post-details">{{data.details}}</div>
             </mat-card-content>
-            <button mat-stroked-button class="post-contact-button">Contact</button>
-            <button mat-stroked-button class="post-comment-button">Comment</button>
-            <button mat-stroked-button class="post-comment-button" (click)="removePost(data)">Delete</button>
-            <button mat-stroked-button class="post-comment-button">Edit</button>
+            <button *ngIf="!(currentUID==data.uid)" mat-stroked-button class="post-contact-button">Contact</button>
+            <button *ngIf="!(currentUID==data.uid)" mat-stroked-button class="post-comment-button">Comment</button>
+            <button *ngIf="currentUID==data.uid" mat-stroked-button class="post-comment-button" (click)="removePost(data)">Delete</button>
+            <button *ngIf="currentUID==data.uid" mat-stroked-button class="post-comment-button">Edit</button>
 
         </div>
         <mat-card class="post-poster">

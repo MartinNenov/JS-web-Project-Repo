@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ export class FirestoreService {
 
   public signedIn: Observable<any>;
 
-  constructor(public fs:AngularFirestore,public auth: AngularFireAuth) {
+  constructor(
+    public utils: UtilsService,
+    public fs:AngularFirestore,
+    public auth: AngularFireAuth
+    ) {
     this.signedIn = new Observable((subscriber)=>{
       this.auth.onAuthStateChanged(subscriber);
     })
@@ -21,6 +26,9 @@ export class FirestoreService {
       if(!email || !password) throw new Error('Invalid email anf/or password');
       let result = await this.auth.signInWithEmailAndPassword(email,password);
       if(result){
+        this.utils.setUID(result.user.uid);
+        localStorage.setItem('currentUID',result.user.uid);
+        this.utils.getUID();
         console.log(result.user.uid);
       }
       return true;
@@ -33,6 +41,7 @@ export class FirestoreService {
   async signOut(){
     try{
       await this.auth.signOut();
+      localStorage.removeItem('currentUID');
       return true;
     } catch (error){
       console.log('Sign out failed', error);

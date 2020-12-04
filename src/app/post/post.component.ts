@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FirestoreService } from '../services/firestore.service';
-
+import { UtilsService } from '../services/utils.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -8,9 +8,15 @@ import { FirestoreService } from '../services/firestore.service';
 })
 export class PostComponent implements OnInit {
   @Input() data : any;
+  currentUID : string;
 
-  constructor(public fs: FirestoreService) { 
-
+  constructor(public fs: FirestoreService,public utils:UtilsService) { 
+    console.log('utils.getUID():'+utils.getUID());
+    if(utils.getUID()==null){
+      utils.setUID(localStorage.getItem('currentUID'));
+    }
+    this.currentUID=utils.getUID();
+    console.log(this.currentUID);
   }
 
   async removePost(task: any) {
