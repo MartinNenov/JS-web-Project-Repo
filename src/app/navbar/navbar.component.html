@@ -2,8 +2,8 @@
     <span><mat-icon>place</mat-icon>TripShare</span>
     <div class="spacer"></div>
     <a routerLink="posts" mat-raised-button>Posts</a>
-    <a routerLink="profile" mat-raised-button>Profile</a>
-    <a mat-raised-button color="accent" (click)="signOut()">Logout</a>
+    <a *ngIf="userAuthBool" routerLink="profile" mat-raised-button>Profile</a>
+    <a *ngIf="userAuthBool" mat-raised-button color="accent" (click)="signOut()">Logout</a>
     <a routerLink="register" mat-raised-button color="accent">SignIn/SignUp</a>
-    <a routerLink="create-post" mat-raised-button>Create Post</a>
+    <a *ngIf="userAuthBool" routerLink="create-post" mat-raised-button>Create Post</a>
 </mat-toolbar>

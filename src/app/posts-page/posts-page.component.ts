@@ -19,12 +19,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.fsData = new Array();
 
     this.userAuth = this.fs.signedIn.subscribe((user) => {
-      if (user) {
-          this.getPostData();
-      } else {
-          this.router.navigate([ 'signin' ]);
-      }
-  });
+      this.getPostData();
+    });
   }
   ngOnInit(): void {}
 

@@ -20,7 +20,9 @@ export class CreatePostComponent implements OnInit {
     this.addFailed = false;
 
     this.postForm = this.fb.group({
-      post: new FormControl('', [Validators.required,Validators.minLength(1)])
+      from: new FormControl('', [Validators.required]),
+      to: new FormControl('', [ Validators.required]),
+      details: new FormControl('', [ Validators.required, Validators.minLength(20) ])
     });
     
     this.userAuth = this.fs.signedIn.subscribe((user) => {

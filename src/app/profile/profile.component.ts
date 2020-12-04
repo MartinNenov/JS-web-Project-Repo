@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FirestoreService } from '../services/firestore.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public userAuth: Subscription;
+
+  constructor(public fs: FirestoreService,public router: Router) { 
+    this.userAuth = this.fs.signedIn.subscribe((user) => {
+      if (user) {
+          
+      } else {
+          this.router.navigate([ 'signin' ]);
+      }
+    });
+  }
 
   ngOnInit(): void {
   }

@@ -1,4 +1,8 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FirestoreService } from '../services/firestore.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 /* import { AngularFire, AngularFireAuth, AuthMethods } from '@angular/fire/auth';
 
 import { AngularFire, AuthProviders, AuthMethods } from '@angular/fire'; */
@@ -10,8 +14,38 @@ import { AngularFire, AuthProviders, AuthMethods } from '@angular/fire'; */
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  public signInForm: FormGroup;
+  public signInFailed: boolean;
+  public userAuth: Subscription;
 
-  ngOnInit(): void {
+  constructor(public fb: FormBuilder, public fs: FirestoreService, public router: Router) { 
+    this.signInFailed = false;
+    this.signInForm = this.fb.group({
+      email: new FormControl('', [ Validators.required, Validators.email ]),
+      password: new FormControl('', [ Validators.required, Validators.minLength(6) ])
+    });
+    this.userAuth = this.fs.signedIn.subscribe((user) => {
+      if (user) this.router.navigate([ 'posts' ]);
+    });
   }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.userAuth) this.userAuth.unsubscribe();
+  }
+
+  async signIn(fg: FormGroup) {
+    try {
+        this.signInFailed = false;
+        if (!fg.valid) throw new Error('Invalid sign-in credentials');
+        const result = await this.fs.signIn(fg.value.email, fg.value.password);
+        console.log('that tickles', result);
+        if (result) this.router.navigate([ 'posts' ]);
+        else throw new Error('Sign-in failed');
+    } catch (error) {
+        console.log(error);
+        this.signInFailed = true;
+    }
+}
 }

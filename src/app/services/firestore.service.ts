@@ -56,7 +56,8 @@ export class FirestoreService {
     try{
       if(!data) throw new Error('Invalid data');
       data.uid = (await this.auth.currentUser).uid;
-      await this.fs.collection('posts').add(data);
+      let result = await this.fs.collection('posts').add(data);
+      return true;
     } catch(error) {
       console.log(error);
       return true;
