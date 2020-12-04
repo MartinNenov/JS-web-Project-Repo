@@ -13,7 +13,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   public fsData: Array<any>;
   public userAuth: Subscription;
-  public taskDataSub: Subscription;
+  public postDataSub: Subscription;
 
   constructor(public fs: FirestoreService, public router: Router) { 
     this.fsData = new Array();
@@ -26,11 +26,11 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.userAuth) this.userAuth.unsubscribe();
-    if (this.taskDataSub) this.taskDataSub.unsubscribe();
+    if (this.postDataSub) this.postDataSub.unsubscribe();
   }
 
   getPostData() {
-    this.taskDataSub = this.fs.getPosts().subscribe((data) => {
+    this.postDataSub = this.fs.getPosts().subscribe((data) => {
         this.fsData = data;
     });
 }

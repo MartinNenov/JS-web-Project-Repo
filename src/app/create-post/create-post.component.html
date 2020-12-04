@@ -1,19 +1,22 @@
-<mat-card>
-    <mat-card-content>
-        <form [formGroup]="postForm" (ngSubmit)="addPost(postForm)">
-            <mat-form-field>
-                <input matInput placeholder="Starting point" name="from" formControlName="from">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="End point" name="to" formControlName="to">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Details" name="details" formControlName="details">
-            </mat-form-field>
-            <h4 *ngIf="addFailed" style="color: #f00;">Invalid post.Pleace try again</h4>
-            <button mat-raised-button color="primary" class="post-button">
-                Create Post
-            </button>
-        </form>
-    </mat-card-content>
-</mat-card>
+<div class="create-post-page">
+    <mat-card>
+        <mat-card-content>
+            <mat-card-title style="text-align:center;">Create a post</mat-card-title>
+            <form [formGroup]="postForm" (ngSubmit)="addPost(postForm)">
+                <mat-form-field>
+                    <input matInput placeholder="Starting point" name="from" formControlName="from">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="End point" name="to" formControlName="to">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Details" name="details" formControlName="details">
+                </mat-form-field>
+                <h4 *ngIf="addFailed" style="color: #f00;">Invalid post.Pleace try again</h4>
+                <button mat-raised-button color="primary" class="post-button">
+                        Create Post
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

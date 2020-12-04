@@ -19,7 +19,10 @@ export class FirestoreService {
   async signIn(email: string,password: string){
     try{
       if(!email || !password) throw new Error('Invalid email anf/or password');
-      await this.auth.signInWithEmailAndPassword(email,password);
+      let result = await this.auth.signInWithEmailAndPassword(email,password);
+      if(result){
+        console.log(result.user.uid);
+      }
       return true;
     } catch(error) {
       console.log('Sign in failed', error);
