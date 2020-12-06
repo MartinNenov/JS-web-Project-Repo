@@ -8,13 +8,14 @@ import { UtilsService } from '../services/utils.service';
 })
 export class PostComponent implements OnInit {
   @Input() data : any;
-  currentUID : string;
+  currentUID : any;
 
   constructor(public fs: FirestoreService,public utils:UtilsService) { 
     if(utils.getUID()==null){
       utils.setUID(localStorage.getItem('currentUID'));
     }
     this.currentUID=utils.getUID();
+    console.log(this.currentUID);
   }
 
   async removePost(post: any) {

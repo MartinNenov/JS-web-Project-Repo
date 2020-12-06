@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { UtilsService } from './utils.service';
+import { first } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,49 @@ export class FirestoreService {
       this.auth.onAuthStateChanged(subscriber);
     })
   }
+
+  async addActivePost(setting:boolean){
+    let appInfRef = this.fs.collection('app-information');
+    let postsInfomation = await this.fs.collection('app-information').valueChanges();
+    let postsI:any;
+    postsInfomation.pipe(first()).subscribe((users)=>{
+      postsI = users[0];
+      console.log(postsI);
+      asd();
+    })
+    function asd(){
+      if(setting){
+        appInfRef.doc('posts').update({activePosts:postsI.activePosts+1});
+      }else{
+        appInfRef.doc('posts').update({activePosts:postsI.activePosts-1});
+
+      }
+    }
+  }
+
+  async addAllPost(setting:boolean){
+    let appInfRef = this.fs.collection('app-information');
+    let postsInfomation = await this.fs.collection('app-information').valueChanges();
+    let postsI:any;
+    postsInfomation.pipe(first()).subscribe((users)=>{
+      postsI = users[0];
+      console.log(postsI);
+      asd();
+    })
+    function asd(){
+      if(setting){
+        appInfRef.doc('posts').update({nOfAllPosts:postsI.nOfAllPosts+1});
+      }else{
+        appInfRef.doc('posts').update({nOfAllPosts:postsI.nOfAllPosts-1});
+
+      }
+    }
+  }
+
+  getPostsInfo() {
+    return this.fs.collection('app-information').valueChanges();
+  }
+
 
   async signUp({email, adress, name, password, repeatpassword}){
     console.log(email,  password);
@@ -57,6 +101,7 @@ export class FirestoreService {
     try{
       await this.auth.signOut();
       localStorage.removeItem('currentUID');
+      this.utils.setUID(null);
       return true;
     } catch (error){
       console.log('Sign out failed', error);
@@ -72,6 +117,8 @@ export class FirestoreService {
     try {
       if(!id) throw new Error('Invalid Id or data');
       await this.fs.collection('posts').doc(id).delete();
+      this.addActivePost(false);
+      this.addAllPost(false);
       return true;
     } catch (error) {
       console.log(error);
@@ -83,6 +130,7 @@ export class FirestoreService {
     try {
       if(!id) throw new Error('Invalid Id or data');
       await this.fs.collection('posts').doc(id).update({active:activeValue});
+      this.addActivePost(activeValue);
       return true;
     } catch (error) {
       console.log(error);

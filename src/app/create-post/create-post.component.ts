@@ -42,12 +42,12 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     try {
         if (!fg.valid) throw new Error('Invalid post data');
         this.addFailed = false;
-        console.log(fg.value);
         const result = await this.fs.addPost(fg.value);
         if (result) {
           fg.reset();
           //console.log(result);
-          
+          this.fs.addActivePost(true);
+          this.fs.addAllPost(true);
           this.router.navigate([ 'posts' ]);
         }
         else throw new Error('Failed to add post; Something went wrong');

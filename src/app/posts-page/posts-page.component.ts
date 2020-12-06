@@ -22,6 +22,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     this.userAuth = this.fs.signedIn.subscribe((user) => {
       this.getPostData();
+      
     });
   }
   ngOnInit(): void {}
@@ -30,14 +31,12 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     if (this.userAuth) this.userAuth.unsubscribe();
     if (this.postDataSub) this.postDataSub.unsubscribe();
   }
-
+  
   getPostData() {
     this.postDataSub = this.fs.getPosts().subscribe((data) => {
-        this.fsData = data;
-        this.activePosts = this.fsData.filter(post=>post.active);
-        this.nonactivePosts = this.fsData.filter(post=>{return !(post.active)});
-        console.log(this.activePosts);
-        console.log(this.nonactivePosts);
+      this.fsData = data;
+      this.activePosts = this.fsData.filter(post=>post.active);
+      this.nonactivePosts = this.fsData.filter(post=>{return !(post.active)});
     });
 }
 
