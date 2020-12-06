@@ -28,8 +28,6 @@ export class RegisterComponent implements OnInit {
     });
     this.signUpForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      adress:  new FormControl('', [Validators.required]),
-      name:  new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repeatpassword:  new FormControl('', [Validators.required, Validators.minLength(6)])
     });
