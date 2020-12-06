@@ -11,22 +11,31 @@ export class PostComponent implements OnInit {
   currentUID : string;
 
   constructor(public fs: FirestoreService,public utils:UtilsService) { 
-    console.log('utils.getUID():'+utils.getUID());
     if(utils.getUID()==null){
       utils.setUID(localStorage.getItem('currentUID'));
     }
     this.currentUID=utils.getUID();
-    console.log(this.currentUID);
   }
 
-  async removePost(task: any) {
+  async removePost(post: any) {
     try {
-        if (!task) throw new Error('Invalid task');
-        const result = await this.fs.deletePost(task.id);
-        if (!result) throw new Error('Failed to remove task');
+        if (!post) throw new Error('Invalid post');
+        const result = await this.fs.deletePost(post.id);
+        if (!result) throw new Error('Failed to remove post');
     } catch (error) {
         console.log(error);
-        alert('Failed to remove task; something went wrong.');
+        alert('Failed to remove post; something went wrong.');
+    }
+  }
+
+  async updatePost(post: any,activevalue:boolean) {
+    try {
+        if (!post) throw new Error('Invalid post');
+        const result = await this.fs.updatePost(post.id,activevalue);
+        if (!result) throw new Error('Failed to remove post');
+    } catch (error) {
+        console.log(error);
+        alert('Failed to remove post; something went wrong.');
     }
   }
 

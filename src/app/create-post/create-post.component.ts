@@ -40,9 +40,9 @@ export class CreatePostComponent implements OnInit, OnDestroy {
 
   async addPost(fg: FormGroup) {
     try {
-        console.log(fg.valid, fg.value);
         if (!fg.valid) throw new Error('Invalid post data');
         this.addFailed = false;
+        console.log(fg.value);
         const result = await this.fs.addPost(fg.value);
         if (result) {
           fg.reset();

@@ -10,16 +10,16 @@
             <button *ngIf="!(currentUID==data.uid)" mat-stroked-button class="post-comment-button">Comment</button>
             <button *ngIf="currentUID==data.uid" mat-stroked-button class="post-comment-button" (click)="removePost(data)">Delete</button>
             <button *ngIf="currentUID==data.uid" mat-stroked-button class="post-comment-button">Edit</button>
+            <button *ngIf="currentUID==data.uid&&data.active" mat-stroked-button class="post-comment-button" (click)="updatePost(data,false)">Make Nonactive</button>
+            <button *ngIf="currentUID==data.uid&&!(data.active)" mat-stroked-button class="post-comment-button" (click)="updatePost(data,true)">Make Active</button>
 
         </div>
         <mat-card class="post-poster">
             <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
             <mat-card-content class="post=content">
-                <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdihasuihduiahsuidhaiushdiaisdihiussssssssssssssssssssosssssssssssssssssssssw: 2</div>
                 <button mat-stroked-button class="poster-profile-button">View Profile</button>
             </mat-card-content>
         </mat-card>
-
     </mat-card>
 </div>
 <!-- <div class="holder">

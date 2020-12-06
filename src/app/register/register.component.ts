@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FirestoreService } from '../services/firestore.service';
+import { UtilsService } from '../services/utils.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 /* import { AngularFire, AngularFireAuth, AuthMethods } from '@angular/fire/auth';
@@ -15,21 +16,29 @@ import { AngularFire, AuthProviders, AuthMethods } from '@angular/fire'; */
 export class RegisterComponent implements OnInit {
 
   public signInForm: FormGroup;
+  public signUpForm: FormGroup;
   public signInFailed: boolean;
   public userAuth: Subscription;
 
-  constructor(public fb: FormBuilder, public fs: FirestoreService, public router: Router) { 
+  constructor(public fb: FormBuilder,public utils:UtilsService, public fs: FirestoreService, public router: Router) {
     this.signInFailed = false;
     this.signInForm = this.fb.group({
-      email: new FormControl('', [ Validators.required, Validators.email ]),
-      password: new FormControl('', [ Validators.required, Validators.minLength(6) ])
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
+    this.signUpForm = this.fb.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      adress:  new FormControl('', [Validators.required]),
+      name:  new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      repeatpassword:  new FormControl('', [Validators.required, Validators.minLength(6)])
     });
     this.userAuth = this.fs.signedIn.subscribe((user) => {
-      if (user) this.router.navigate([ 'posts' ]);
+      if (user) this.router.navigate(['posts']);
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     if (this.userAuth) this.userAuth.unsubscribe();
@@ -37,11 +46,26 @@ export class RegisterComponent implements OnInit {
 
   async signIn(fg: FormGroup) {
     try {
-        this.signInFailed = false;
+      this.signInFailed = false;
+      if (!fg.valid) throw new Error('Invalid sign-in credentials');
+      const result = await this.fs.signIn(fg.value.email, fg.value.password);
+      console.log('that tickles', result);
+      if (result) this.router.navigate(['posts']);
+      else throw new Error('Sign-in failed');
+    } catch (error) {
+      console.log(error);
+      this.signInFailed = true;
+    }
+  }
+
+  async signUp(fg: FormGroup) {
+    try {
+        this.signInFailed = true;
         if (!fg.valid) throw new Error('Invalid sign-in credentials');
-        const result = await this.fs.signIn(fg.value.email, fg.value.password);
-        console.log('that tickles', result);
-        if (result) this.router.navigate([ 'posts' ]);
+        const result = await this.fs.signUp(fg.value);
+        console.log('that tickles2', result);
+        if (result) {this.router.navigate([ 'register' ]);
+        }
         else throw new Error('Sign-in failed');
     } catch (error) {
         console.log(error);

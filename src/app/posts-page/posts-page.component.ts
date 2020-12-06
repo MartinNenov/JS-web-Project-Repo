@@ -14,6 +14,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   public fsData: Array<any>;
   public userAuth: Subscription;
   public postDataSub: Subscription;
+  public activePosts: Array<any>;
+  public nonactivePosts: Array<any>;
 
   constructor(public fs: FirestoreService, public router: Router) { 
     this.fsData = new Array();
@@ -32,6 +34,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   getPostData() {
     this.postDataSub = this.fs.getPosts().subscribe((data) => {
         this.fsData = data;
+        this.activePosts = this.fsData.filter(post=>post.active);
+        this.nonactivePosts = this.fsData.filter(post=>{return !(post.active)});
+        console.log(this.activePosts);
+        console.log(this.nonactivePosts);
     });
 }
 

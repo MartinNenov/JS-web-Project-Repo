@@ -26,6 +26,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostsPageComponent } from './posts-page/posts-page.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 
 
@@ -38,6 +39,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     ProfileComponent,
     PostsPageComponent,
     CreatePostComponent,
+    AboutPageComponent,
   ],
   imports: [
     BrowserModule,

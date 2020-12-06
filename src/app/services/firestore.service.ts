@@ -21,6 +21,23 @@ export class FirestoreService {
     })
   }
 
+  async signUp({email, adress, name, password, repeatpassword}){
+    console.log(email,  password);
+    try{
+      if(!email || !password) throw new Error('Invalid email anf/or password');
+      let result = await this.auth.createUserWithEmailAndPassword(email,password);
+      console.log(this.auth);
+      if(result){
+        localStorage.setItem('currentUID',result.user.uid);
+      }
+      return true;
+    } catch(error) {
+      console.log('Sign in failed', error);
+      return false;
+    }
+  }
+
+
   async signIn(email: string,password: string){
     try{
       if(!email || !password) throw new Error('Invalid email anf/or password');
@@ -28,8 +45,6 @@ export class FirestoreService {
       if(result){
         this.utils.setUID(result.user.uid);
         localStorage.setItem('currentUID',result.user.uid);
-        this.utils.getUID();
-        console.log(result.user.uid);
       }
       return true;
     } catch(error) {
@@ -64,10 +79,22 @@ export class FirestoreService {
     }
   }
 
+  async updatePost(id: string,activeValue:boolean){
+    try {
+      if(!id) throw new Error('Invalid Id or data');
+      await this.fs.collection('posts').doc(id).update({active:activeValue});
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   async addPost(data:any){
     try{
       if(!data) throw new Error('Invalid data');
       data.uid = (await this.auth.currentUser).uid;
+      data.active = true;
       let result = await this.fs.collection('posts').add(data);
       return true;
     } catch(error) {

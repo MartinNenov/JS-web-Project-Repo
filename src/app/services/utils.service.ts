@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class UtilsService {
   private user={
-    uid:null,
+    uid:null
   };
+
 
   constructor() { }
 
@@ -14,7 +15,7 @@ export class UtilsService {
     this.user.uid = uid;
   }
 
-  getUID() {
+  getUID():string{
     return this.user.uid;
   }
   
