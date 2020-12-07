@@ -15,7 +15,7 @@ export class PostComponent implements OnInit {
       utils.setUID(localStorage.getItem('currentUID'));
     }
     this.currentUID=utils.getUID();
-    console.log(this.currentUID);
+    //console.log(this.currentUID);
   }
 
   async removePost(post: any) {

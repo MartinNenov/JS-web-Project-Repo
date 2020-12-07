@@ -28,7 +28,7 @@ export class FirestoreService {
     let postsI:any;
     postsInfomation.pipe(first()).subscribe((users)=>{
       postsI = users[0];
-      console.log(postsI);
+      //console.log(postsI);
       asd();
     })
     function asd(){
@@ -47,7 +47,7 @@ export class FirestoreService {
     let postsI:any;
     postsInfomation.pipe(first()).subscribe((users)=>{
       postsI = users[0];
-      console.log(postsI);
+      //console.log(postsI);
       asd();
     })
     function asd(){

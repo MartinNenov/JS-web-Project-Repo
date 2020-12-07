@@ -58,11 +58,11 @@ export class RegisterComponent implements OnInit {
 
   async signUp(fg: FormGroup) {
     try {
-        this.signInFailed = true;
+        this.signInFailed = false;
         if (!fg.valid) throw new Error('Invalid sign-in credentials');
         const result = await this.fs.signUp(fg.value);
         console.log('that tickles2', result);
-        if (result) {this.router.navigate([ 'register' ]);
+        if (result) {this.router.navigate([ 'profile' ]);
         }
         else throw new Error('Sign-in failed');
     } catch (error) {
