@@ -9,7 +9,7 @@ import { AboutPageComponent } from './about-page/about-page.component';
 const routes: Routes = [
   {path: 'posts' , component: PostsPageComponent},
   {path: 'register' , component: RegisterComponent},
-  {path: 'profile' , component: ProfileComponent},
+  {path: 'profile/:uid' , component: ProfileComponent},
   {path: 'create-post' , component: CreatePostComponent},
   {path: 'about-page' , component: AboutPageComponent},
   {path:'**',redirectTo:'register',pathMatch:'full'}

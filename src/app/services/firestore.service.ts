@@ -19,6 +19,11 @@ export class FirestoreService {
     ) {
     this.signedIn = new Observable((subscriber)=>{
       this.auth.onAuthStateChanged(subscriber);
+      this.auth.currentUser.then(user=>{
+        if(user){
+          this.utils.setUID(user.uid);
+        }
+      })
     })
   }
 
@@ -39,6 +44,11 @@ export class FirestoreService {
 
       }
     }
+  }
+
+  getUserPersonalData(uid){
+    let doc = this.fs.collection('user-information').doc(uid);
+    return doc;
   }
 
   async addAllPost(setting:boolean){
@@ -65,12 +75,11 @@ export class FirestoreService {
   }
 
 
-  async signUp({email, adress, name, password, repeatpassword}){
+  async signUp({email,  password}){
     console.log(email,  password);
     try{
       if(!email || !password) throw new Error('Invalid email anf/or password');
       let result = await this.auth.createUserWithEmailAndPassword(email,password);
-      console.log(this.auth);
       if(result){
         localStorage.setItem('currentUID',result.user.uid);
       }

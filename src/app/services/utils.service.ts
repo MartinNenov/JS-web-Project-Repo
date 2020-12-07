@@ -9,7 +9,11 @@ export class UtilsService {
   };
 
 
-  constructor() { }
+  constructor() {
+    if(localStorage.getItem('currentUID')){
+      this.user.uid = localStorage.getItem('currentUID');
+    }
+   }
 
   setUID(uid){
     this.user.uid = uid;

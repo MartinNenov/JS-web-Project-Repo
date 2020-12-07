@@ -1,0 +1,9 @@
+<mat-card class="comment">
+    <div *ngIf="!reviewPosterInformation">Loading...</div>
+    <div *ngIf="reviewPosterInformation">
+        <mat-card-title>{{reviewPosterInformation.name}} :</mat-card-title>
+        <mat-card-content>
+            <div>{{data.review}}</div>
+        </mat-card-content>
+    </div>
+</mat-card>

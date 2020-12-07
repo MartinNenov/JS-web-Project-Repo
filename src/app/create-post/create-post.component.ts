@@ -30,7 +30,8 @@ export class CreatePostComponent implements OnInit, OnDestroy {
       } else {
           this.router.navigate([ 'signin' ]);
       }
-  }));
+    })
+  );
   }
   ngOnInit(): void {}
 

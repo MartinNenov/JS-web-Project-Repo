@@ -3,7 +3,7 @@
     <div class="spacer"></div>
     <a *ngIf="!userAuthBool" routerLink="about-page" mat-raised-button>About</a>
     <a routerLink="posts" mat-raised-button>Posts</a>
-    <a *ngIf="userAuthBool" routerLink="profile" mat-raised-button>Profile</a>
+    <a *ngIf="userAuthBool" [routerLink]="['/profile',uid]" mat-raised-button>Profile</a>
     <a *ngIf="!userAuthBool" routerLink="register" mat-raised-button color="accent">SignIn/SignUp</a>
     <a *ngIf="userAuthBool" routerLink="create-post" mat-raised-button>Create Post</a>
     <a *ngIf="userAuthBool" mat-raised-button color="accent" (click)="signOut()">Logout</a>

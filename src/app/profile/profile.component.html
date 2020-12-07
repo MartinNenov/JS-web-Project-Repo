@@ -1,117 +1,35 @@
 <mat-card class="profile-form">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Ivan Iliev</mat-card-title>
-        <mat-card-subtitle>From: Sofia</mat-card-subtitle>
-        <mat-card-content class="rating-bar-holder">
-            Rating:
-            <mat-progress-bar class="rating-bar" mode="determinate" value="40"></mat-progress-bar>
-        </mat-card-content>
+    <div *ngIf="userInformation">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{userInformation.name}}</mat-card-title>
+            <mat-card-subtitle>From: {{userInformation.city}}</mat-card-subtitle>
+            <mat-card-content class="rating-bar-holder">
+                Rating:
+                <mat-progress-bar class="rating-bar" mode="determinate" value="{{rating}}"></mat-progress-bar>
+            </mat-card-content>
 
-    </mat-card-header>
-    <button mat-stroked-button class="profile-btns">Leave a comment</button>
-    <button mat-stroked-button class="profile-btns">Contact</button>
-    <button mat-stroked-button class="profile-btns">Report</button>
-    <button mat-stroked-button class="profile-btns">Create a Post</button>
-    <mat-card class="mat-elevation-z12">
-        <mat-card-title style="text-align:center;">User posts and comments</mat-card-title>
-        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
-            <mat-tab label="Active posts">
-                <mat-card class="post">
+        </mat-card-header>
+        <button *ngIf="isloggedInUserProfile" mat-stroked-button class="profile-btns">Leave a review about this person.</button>
+        <button *ngIf="isloggedInUserProfile" mat-stroked-button class="profile-btns">Contact</button>
+        <button *ngIf="isloggedInUserProfile" mat-stroked-button class="profile-btns">Up-vote this person</button>
+        <button *ngIf="isloggedInUserProfile" mat-stroked-button class="profile-btns">Down-vote this person</button>
+        <button *ngIf="isloggedInUserProfile" mat-stroked-button class="profile-btns">Edit personal information</button>
+        <mat-card class="mat-elevation-z12">
+            <mat-card-title style="text-align:center;">User posts and comments</mat-card-title>
+            <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+                <mat-tab label="Active posts">
+                    <app-post *ngFor="let data of activeUserPosts" [data]="data"></app-post>
+                </mat-tab>
+                <mat-tab label="Nonactive  posts">
+                    <app-post *ngFor="let data of nonactiveUserPosts" [data]="data"></app-post>
+                </mat-tab>
+                <mat-tab label="Reviews">
+                    <app-review *ngFor="let data of reviews" [data]="data"></app-review>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
 
-                    <div class="post-content">
-                        <mat-card-title class="post-title" style="text-align:left;">From [place 1] to [place 2]</mat-card-title>
-                        <mat-card-content>
-                            <div class="post-details">Detailsasdadasdsadssssssssssssasdssssssss ssssssssssssssssssssssssssssssdjaoi sjdijaoisjdajsodjaoijdjasdjjowneuoifnnienbrivpbei rgbiebrgibeirgbiesrbguibseirugbies brgisbeuirgbiesrbgisberuigbseirguibdassssssssss ssssssssssssssssssssssssssssssssssssss</div>
-                        </mat-card-content>
-                        <button mat-stroked-button class="post-contact-button">Contact</button>
-                        <button mat-stroked-button class="post-comment-button">Comment</button>
-
-                    </div>
-                    <mat-card class="post-poster">
-                        <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
-                        <mat-card-content class="post=content">
-                            <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdihasui hduiahsuidhaiushdiaisdihiussssss ssssssssssssssosssssssssssss ssssssssw: 2</div>
-                            <button mat-stroked-button class="poster-profile-button">View Profile</button>
-                        </mat-card-content>
-                    </mat-card>
-
-                </mat-card>
-
-                <mat-card class="post">
-
-                    <div class="post-content">
-                        <mat-card-title class="post-title" style="text-align:left;">From [place 1] to [place 2]</mat-card-title>
-                        <mat-card-content>
-                            <div class="post-details">DetailsasdadasdsadssssssCHANGEssssssasdssssssssssssss ssssssssssssssssssssssssdjaoisjdijaoisj dajsodjaoijdjasdjjowneuoifnnienbrivpbeirgbi ebrgibeirgbiesrbguibseirugbiesbrgisbeuirgb iesrbgisberuigbseirguibdassssssssssssssssssssssssssssssssssssssssssssssss</div>
-                        </mat-card-content>
-                        <button mat-stroked-button class="post-contact-button">Contact</button>
-                        <button mat-stroked-button class="post-comment-button">Comment</button>
-
-                    </div>
-                    <mat-card class="post-poster">
-                        <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
-                        <mat-card-content class="post=content">
-                            <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdihasuihduiahsuidhaiushdiaisdihiussssssssssssssssssssosssssssssssssssssssssw: 2</div>
-                            <button mat-stroked-button class="poster-profile-button">View Profile</button>
-                        </mat-card-content>
-                    </mat-card>
-
-                </mat-card>
-            </mat-tab>
-            <mat-tab label="Nonactive  posts">
-                <mat-card class="post">
-
-                    <div class="post-content">
-                        <mat-card-title class="post-title" style="text-align:left;">From [place 1] to [place 2]</mat-card-title>
-                        <mat-card-content>
-                            <div class="post-details">Detailsasdadasdsadssssssssssssasdsssssssssssssss sssssssssssssssssssssssdjaoisjdijaoisjdajsodjaoijdjas djjowneuoifnnienbrivpbeirgbiebrgibeirgbiesrbguibseirugbiesbrgisbeui rgbiesrbgisberuigbseirguibdassssssssssssssssssssssssssssssssssssssssssssssss</div>
-                        </mat-card-content>
-                        <button mat-stroked-button class="post-contact-button">Contact</button>
-                        <button mat-stroked-button class="post-comment-button">Comment</button>
-
-                    </div>
-                    <mat-card class="post-poster">
-                        <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
-                        <mat-card-content class="post=content">
-                            <div class="poster-details">From: Sofia ,Rating: 4 ,TripsSharedUntilNsssss ssdaishdihasuihduiahsuidhaiushdiaisdi hiussssssssssssssssssssosssssssssssssssssssssw: 2</div>
-                            <button mat-stroked-button class="poster-profile-button">View Profile</button>
-                        </mat-card-content>
-                    </mat-card>
-
-                </mat-card>
-            </mat-tab>
-            <mat-tab label="Comments">
-                <mat-card class="comment">
-                    <mat-card-title>From: Petar Kolev</mat-card-title>
-                    <mat-card-subtitle>asdasd</mat-card-subtitle>
-                    <mat-card-content>
-                        <div>From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssd aishdihasuihduiahsuidhaiushdiaisdih iussssssssssssssssssssossssssss sssssssssssssw: 2</div>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="comment">
-                    <mat-card-title>From: Petar Kolev</mat-card-title>
-                    <mat-card-subtitle>asdasd</mat-card-subtitle>
-                    <mat-card-content>
-                        <div>From: Sofia ,Rating: 4 ,Trip haredUntilNsssssssdaishdihasui hduiahsuidhaiushdiaisdihiussssssssss ssssssssssosssssssssssssssssssssw: 2</div>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="comment">
-                    <mat-card-title>From: Petar Kolev</mat-card-title>
-                    <mat-card-subtitle>asdasd</mat-card-subtitle>
-                    <mat-card-content>
-                        <div>From: Sofia ,Rating: 4 ,TripsShar edUntilNsssssssdaishdihasuihduiahsuidh aiushdiaisdihiussssssssssssssssssssos ssssssssssssssssssssw: 2</div>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="comment">
-                    <mat-card-title>From: Petar Kolev</mat-card-title>
-                    <mat-card-subtitle>asdasd</mat-card-subtitle>
-                    <mat-card-content>
-                        <div>From: Sofia ,Rating: 4 ,TripsSharedUntilNsssssssdaishdiha suihduiahsuidhaiushdiaisdihiusssssss sssssssssssssosssssssssssssssssssssw: 2</div>
-                    </mat-card-content>
-                </mat-card>
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card>
+    </div>
 
 </mat-card>
