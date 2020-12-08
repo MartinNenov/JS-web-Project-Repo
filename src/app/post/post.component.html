@@ -17,7 +17,7 @@
         <mat-card class="post-poster">
             <mat-card-title class="poster-name" style="text-align:left;">Poster : Ivan Iliev</mat-card-title>
             <mat-card-content class="post=content">
-                <button *ngIf="currentUID!=null" mat-stroked-button class="poster-profile-button">View Profile</button>
+                <button *ngIf="currentUID!=null" [routerLink]="['/profile',data.uid]" mat-stroked-button class="poster-profile-button">View Profile</button>
             </mat-card-content>
         </mat-card>
     </mat-card>

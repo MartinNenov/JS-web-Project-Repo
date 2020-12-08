@@ -156,7 +156,11 @@ export class FirestoreService {
       return true;
     } catch(error) {
       console.log(error);
-      return true;
+      return false;
     }
+  }
+
+  getPersonalDataRef(){
+    return this.fs.collection('user-information');
   }
 }

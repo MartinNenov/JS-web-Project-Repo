@@ -18,6 +18,19 @@
 }
 
 .example-header-image {
-    background-image: url('https://static2.stuff.co.nz/1398841710/201/9994201.jpg');
     background-size: cover;
+}
+
+mat-form-field,
+mat-checkbox {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
+.post-button {
+    margin-top: 20px;
+    display: block;
+    width: 50%;
+    margin: 20px auto;
 }
