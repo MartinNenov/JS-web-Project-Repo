@@ -1,7 +1,8 @@
 <mat-card class="comment">
-    <div *ngIf="!reviewPosterInformation">Loading...</div>
-    <div *ngIf="reviewPosterInformation">
-        <mat-card-title>{{reviewPosterInformation.name}} :</mat-card-title>
+    <div>
+        <mat-card-title *ngIf="reviewPosterInformation">{{reviewPosterInformation.name }} :</mat-card-title>
+
+        <mat-card-title *ngIf="!reviewPosterInformation">{{'Anonymous - This person has no personal information'}}</mat-card-title>
         <button *ngIf="data.posterId==currentUID" mat-stroked-button class="review-btns" (click)="editReviewBool = true">Edit review</button>
         <button *ngIf="data.posterId==currentUID" mat-stroked-button class="review-btns" (click)="deleteReview()">Delete review</button>
         <mat-card-content>

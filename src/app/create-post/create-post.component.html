@@ -10,6 +10,15 @@
                     <input matInput placeholder="End point" name="to" formControlName="to">
                 </mat-form-field>
                 <mat-form-field>
+                    <input matInput placeholder="Date & time" name="timeOfDeparture" formControlName="timeOfDeparture">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Number of seats" name="nOfSeats" formControlName="nOfSeats">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Luggage" name="luggage" formControlName="luggage">
+                </mat-form-field>
+                <mat-form-field>
                     <input matInput placeholder="Details" name="details" formControlName="details">
                 </mat-form-field>
                 <h4 *ngIf="addFailed" style="color: #f00;">Invalid post.Pleace try again</h4>

@@ -4,7 +4,7 @@
         <div class="add-personalInformation-page">
             <mat-card>
                 <mat-card-content>
-                    <mat-card-title style="text-align:center;">Add personal data</mat-card-title>
+                    <mat-card-title style="text-align:center;">Add personal data to create your profile</mat-card-title>
                     <form [formGroup]="infoForm" (ngSubmit)="addInfo(infoForm)">
                         <mat-form-field>
                             <input matInput placeholder="Full Name" name="name" formControlName="name">
@@ -37,7 +37,6 @@
                 Rating:
                 <mat-progress-bar class="rating-bar" mode="determinate" value="{{rating}}"></mat-progress-bar>
             </mat-card-content>
-
         </mat-card-header>
         <form *ngIf="!isloggedInUserProfile" [formGroup]="postForm" (ngSubmit)="addReview(postForm)">
             <mat-form-field>

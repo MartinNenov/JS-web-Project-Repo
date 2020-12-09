@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       this.signInFailed = false;
       if (!fg.valid) throw new Error('Invalid sign-in credentials');
       const result = await this.fs.signIn(fg.value.email, fg.value.password);
-      console.log('that tickles', result);
+      //console.log('that tickles', result);
       if (result) this.router.navigate(['posts']);
       else throw new Error('Sign-in failed');
     } catch (error) {
@@ -60,9 +60,9 @@ export class RegisterComponent implements OnInit {
     try {
         this.signInFailed = false;
         if (!fg.valid) throw new Error('Invalid sign-in credentials');
+        if(fg.value.password !== fg.value.repeatpassword) throw new Error('Invalid sign-in credentials');
         const result = await this.fs.signUp(fg.value);
-        console.log('that tickles2', result);
-        if (result) {this.router.navigate([ 'profile' ]);
+        if (result) {this.router.navigate([ 'profile/'+result ]);
         }
         else throw new Error('Sign-in failed');
     } catch (error) {

@@ -1,7 +1,7 @@
 <div class="posts-page">
     <mat-card class="mat-elevation-z12">
         <mat-card-title style="text-align:center;">Posts</mat-card-title>
-        <div *ngIf="fsData.length==0" style="font-size: 30px;">Loading...</div>
+        <div *ngIf="fsData.length==0" style="font-size: 30px;">No Posts yet be the first one create a post.</div>
         <mat-tab-group *ngIf="fsData.length!=0" mat-stretch-tabs class="example-stretched-tabs">
             <mat-tab label="Active Posts">
                 <app-post *ngFor="let data of activePosts" [data]="data"></app-post>

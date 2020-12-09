@@ -29,6 +29,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ReviewComponent } from './review/review.component';
 import { EditPersonalInfoComponent } from './edit-personal-info/edit-personal-info.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 
 
@@ -44,6 +46,8 @@ import { EditPersonalInfoComponent } from './edit-personal-info/edit-personal-in
     AboutPageComponent,
     ReviewComponent,
     EditPersonalInfoComponent,
+    PostDetailsComponent,
+    PostEditComponent,
   ],
   imports: [
     BrowserModule,

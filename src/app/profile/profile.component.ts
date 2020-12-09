@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
 
   isloggedInUserProfile:boolean;
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit {
   public rating;
   public profileInfoSub: Subscription;
   public postSubs: Subscription;
+  public paramsSub: Subscription;
   public activeUserPosts: Array<any>;
   public nonactiveUserPosts: Array<any>;
   public reviews:Array<any>;
@@ -67,36 +69,43 @@ export class ProfileComponent implements OnInit {
         }
       })
     );
-    this.uid=this._Activatedroute.snapshot.paramMap.get("uid");
+    this.getPersonalInfo();
+    
+  }
+
+  getPersonalInfo(){
+    this.paramsSub=this._Activatedroute.paramMap.subscribe(params=>{
+      this.uid = params.get('uid');
+      //console.log(this.uid);
+
+      (this.uid==this.utils.getUID())?this.isloggedInUserProfile=true:this.isloggedInUserProfile=false;
+      this.profileInfoSub = this.fs.getUserPersonalData(this.uid).valueChanges().subscribe((result:any)=>this.ngZone.run(()=>{
+        this.userInformation = result;
+        if(result){
+          this.reviewsRaw = result.reviews;
+          this.reviews = result.reviews.reduce((acc,curr,index)=>{
+            let [posterId,review] = curr.split('|');
+            return acc.concat([{posterId,review}]);
+          },[]);
+          //console.log(this.reviews);
+          this.rating = +result.upVotes/(+result.upVotes+(+result.downVotes))*100;
+        }
+      }))
+      this.postSubs = this.fs.getPosts().subscribe(posts=>{
+        this.activeUserPosts = posts.filter((post:any)=>{
+          return ((post.uid == this.uid)&&(post.active));
+        })
+        this.nonactiveUserPosts = posts.filter((post:any)=>{
+          return ((post.uid == this.uid)&&(!post.active));
+        })
+      })
+    });
     //console.log(this.uid);
     //console.log(utils.getUID());
-    (this.uid==utils.getUID())?this.isloggedInUserProfile=true:this.isloggedInUserProfile=false;
-    this.profileInfoSub = fs.getUserPersonalData(this.uid).valueChanges().subscribe((result:any)=>this.ngZone.run(()=>{
-      this.userInformation = result;
-      if(result){
-        this.reviewsRaw = result.reviews;
-        this.reviews = result.reviews.reduce((acc,curr,index)=>{
-          let [posterId,review] = curr.split('|');
-          return acc.concat([{posterId,review}]);
-        },[]);
-        //console.log(this.reviews);
-        this.rating = +result.upVotes/(+result.upVotes+(+result.downVotes))*100;
-      }
-    }))
-    this.postSubs = fs.getPosts().subscribe(posts=>{
-      this.activeUserPosts = posts.filter((post:any)=>{
-        return ((post.uid == this.uid)&&(post.active));
-      })
-      this.nonactiveUserPosts = posts.filter((post:any)=>{
-        return ((post.uid == this.uid)&&(!post.active));
-      })
-    })
-    
   }
 
   changeEditInfoBool(){
     this.editPIBool = false;
-    console.log(this.editPIBool);
   }
 
   addReview(fg: FormGroup){
@@ -132,7 +141,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('INIT');
+    this.getPersonalInfo();
   }
 
   ngOnChanges():void{
@@ -141,6 +150,7 @@ export class ProfileComponent implements OnInit {
   ngOnDestroy():void{
     if(this.userAuth)this.userAuth.unsubscribe();
     if(this.profileInfoSub)this.profileInfoSub.unsubscribe();
+    if(this.paramsSub)this.paramsSub.unsubscribe();
   }
 
   addInfo(fg: FormGroup){

@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit,Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit,Output ,NgZone} from '@angular/core';
 import { UtilsService } from '../services/utils.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FirestoreService } from '../services/firestore.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,18 +28,26 @@ export class EditPersonalInfoComponent implements OnInit {
 
   @Output() onDataUpdate: EventEmitter<any> = new EventEmitter<any>();
   
+  userAuth: Subscription;
 
-  constructor(public utils: UtilsService,public fb:FormBuilder,public fs:FirestoreService) { 
+  constructor(public utils: UtilsService,public fb:FormBuilder,public fs:FirestoreService,public ngZone:NgZone,public router:Router) { 
     this.updateinfoForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
       imageURL: new FormControl('', [Validators.required])
     });
+    this.userAuth = this.fs.signedIn.subscribe((user) => this.ngZone.run(()=>{
+        if (user) {
+        
+        } else {
+          this.router.navigate([ 'signin' ]);
+        }
+      })
+    );
   }
 
   ngOnInit(): void {
-    console.log(this.userInformation);
     this.name = this.userInformation.name;
     this.city = this.userInformation.city;
     this.phone = this.userInformation.phone;
@@ -48,7 +58,6 @@ export class EditPersonalInfoComponent implements OnInit {
   updateInfo(fg: FormGroup){
     try{
       if (!fg.valid) throw new Error('Invalid post data');
-      console.log(fg.value);
       this.updateInfoFailed = false;
       let {name, city, phone,imageURL} = fg.value;
       let personalData = {
@@ -62,7 +71,6 @@ export class EditPersonalInfoComponent implements OnInit {
       };
       this.fs.getPersonalDataRef().doc(this.utils.getUID()).update(personalData)
       .then((result)=>{
-        console.log(result);
         this.succesfullyUpdatedUserInfo = true;
         this.editPIBool=false; 
         this.onDataUpdate.emit(true);

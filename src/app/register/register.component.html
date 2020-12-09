@@ -34,7 +34,7 @@
                             <mat-icon matSuffix>lock</mat-icon>
                         </mat-form-field>
                         <mat-form-field>
-                            <input matInput placeholder="Repeat Password" type="repeatpassword" minlength="6" name="repeatpassword" formControlName="repeatpassword">
+                            <input matInput placeholder="Repeat Password" type="password" minlength="6" name="repeatpassword" formControlName="repeatpassword">
                             <mat-icon matSuffix>lock</mat-icon>
                         </mat-form-field>
                         <mat-checkbox>Remember Me!</mat-checkbox>
@@ -42,7 +42,7 @@
                             Sign Up
                         </button>
                     </form>
-                    <h4 *ngIf="signInFailed" style="color: #f00;">Sign up failed. Please try again with another email or check if your passwords match. </h4>
+                    <h4 *ngIf="signInFailed" style="color: #f00;">Sign up failed. Please try again with another email or check if your passwords match.Your passwords can't be less than 6. </h4>
                 </mat-card-content>
             </mat-tab>
         </mat-tab-group>

@@ -76,14 +76,13 @@ export class FirestoreService {
 
 
   async signUp({email,  password}){
-    console.log(email,  password);
     try{
       if(!email || !password) throw new Error('Invalid email anf/or password');
       let result = await this.auth.createUserWithEmailAndPassword(email,password);
       if(result){
         localStorage.setItem('currentUID',result.user.uid);
       }
-      return true;
+      return result.user.uid;
     } catch(error) {
       console.log('Sign in failed', error);
       return false;
@@ -122,6 +121,10 @@ export class FirestoreService {
     return this.fs.collection('posts').valueChanges({ idField:'id'});
   }
   
+  getPostData(postId){
+    return this.fs.collection('posts').doc(postId);
+  }
+  
   async deletePost(id: string){
     try {
       if(!id) throw new Error('Invalid Id or data');
@@ -153,6 +156,19 @@ export class FirestoreService {
       data.uid = (await this.auth.currentUser).uid;
       data.active = true;
       let result = await this.fs.collection('posts').add(data);
+      return true;
+    } catch(error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async editPost(data:any,id){
+    try{
+      if(!data) throw new Error('Invalid data');
+      data.uid = (await this.auth.currentUser).uid;
+      data.active = true;
+      let result = await this.fs.collection('posts').doc(id).set(data);
       return true;
     } catch(error) {
       console.log(error);
