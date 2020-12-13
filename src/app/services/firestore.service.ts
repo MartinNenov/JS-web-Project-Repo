@@ -39,7 +39,7 @@ export class FirestoreService {
     function asd(){
       if(setting){
         appInfRef.doc('posts').update({activePosts:postsI.activePosts+1});
-      }else{
+      }else if (!setting){
         appInfRef.doc('posts').update({activePosts:postsI.activePosts-1});
 
       }

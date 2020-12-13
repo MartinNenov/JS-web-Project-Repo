@@ -79,8 +79,6 @@ export class PostEditComponent implements OnInit {
         if (result) {
           fg.reset();
           //console.log(result);
-          this.fs.addActivePost(true);
-          this.fs.addAllPost(true);
           this.router.navigate([ 'posts' ]);
         }
         else throw new Error('Failed to add post; Something went wrong');
